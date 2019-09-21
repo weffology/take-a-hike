@@ -1,6 +1,21 @@
 .jumbotron {
-    background-image: url("../images/mountain.jpg");
+    background-image: url("../images/mountain-lighter.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    color: #072c2c;
+    font-weight: bolder;
+    text-align: center;
+}
+
+html body {
+    background-color: #072c2c;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+#infoArea {
     color: white;
 }
