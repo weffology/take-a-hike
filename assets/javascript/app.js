@@ -47,20 +47,26 @@ $(document).ready(function () {
                 console.log(tempHigh);
                 console.log(tempLow);
                 console.log(clouds);
-                returnResults();
+                returnTrails();
+                returnWeather();
 
             })
     }
-
-
-    //create a function to push values
-    function returnResults() {
+    
+    //create a function to push values to the trails section
+    function returnTrails() {
         
         //here's all the build out for the trails column
         var divTrails = $("<div>");
         divTrails.attr("class", "col-sm-8");
         divTrails.attr("id", "trailResults");
         divTrails.html("You've chosen a " + difficultyLevel + " trail.");
+        //push all the above data into the row
+        $("#row").html(divTrails);
+    }
+
+    //create a function to push values to the weather section
+    function returnWeather() {
         
         //here's the build out for the weather column
         var divWeather = $("<div>");
@@ -69,8 +75,9 @@ $(document).ready(function () {
         divWeather.html("<p>Here is your current weather forcast for: " + "<strong>" + cityName + "</strong>" + "</p>");
         divWeather.append("<p>Your high temperature for today is: " + "<strong>" + tempHigh + "</strong>" + "</p>");
         divWeather.append("<p>Your low temperature for today is: " + "<strong>" + tempLow + "</strong>" + "</p>");
-        $("#row").html(divTrails);
+        //push all the above data into the row
         $("#row").append(divWeather);
     }
+
 })
 
