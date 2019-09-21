@@ -30,27 +30,27 @@
         </div>
     </div>
     <div class="container">
-      <div class="row">
+      <div id="row" class="row">
         <div class="col-sm">
           <form>
                 <!--ZIP INPUT-->
                 <div class="form-group">
                   <label for="inputZip">Zip Code</label>
-                  <input type="number" class="form-control" id="inputZip" placeholder="XXXXX" min="5" max="5">
+                  <input type="text" class="form-control" id="inputZip" placeholder="XXXXX" min="5" max="5">
                 </div>
                 
                 <!--DIFFICULTY LEVEL-->
                 <div class="form-group">
                   <label for="difficultyLevel">Difficulty Level</label>
                   <select class="form-control" id="difficultyLevel">
-                    <option>Couch Potato (Easy)</option>
-                    <option>Forehead Sweat (Moderate)</option>
-                    <option>Armpit Sweat (Hard)</option>
-                    <option>You Sweaty Hiker, You (Extreme)</option>
+                    <option value="green">Couch Potato (Easy)</option>
+                    <option value="blue">Forehead Sweat (Moderate)</option>
+                    <option value="blueblack">Armpit Sweat (Hard)</option>
+                    <option value="black">You Sweaty Hiker, You (Extreme)</option>
                   </select>
                 </div>
           </form>
-          <button type="button" class="btn btn-secondary btn-lg">Happy Trails!</button>
+          <button id="submitBtn" type="button" class="btn btn-secondary btn-lg">Happy Trails!</button>
         </div>
       </div>
     </div>
