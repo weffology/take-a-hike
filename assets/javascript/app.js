@@ -82,6 +82,9 @@ $(document).ready(function () {
                     trailImage = response.trails[i].imgSmall;
                     trailDistance = response.trails[i].length;
                     trailStatus = response.trails[i].conditionStatus;
+                    if (trailStatus == "Unknown") {
+                        trailStatus = "<span style='font-size: 30px'>&#129335;</span>"
+                    }
                     trailDetails = response.trails[i].conditionDetails;
                     if (trailDetails === null) {
                         trailDetails = "No information at this time. Hike at your own risk."
@@ -114,6 +117,7 @@ $(document).ready(function () {
             divTrails.append("<p>Trail Distance: " + "<strong>" + trailDistance + "</strong>" + "</p>");
             divTrails.append("<p>Trail Status: " + "<strong>" + trailStatus + "</strong>" + "</p>");
             divTrails.append("<p>Trail Details: " + "<strong>" + trailDetails + "</strong>" + "</p>");
+            divTrails.append("<hr>");
             $("#row2").append(divTrails);
         }
 
