@@ -27,7 +27,7 @@ $(document).ready(function () {
         $('#inputZip').val("");
         // console.log("false");
     }});
-    
+
     //create on click function for the submit button
     $("#submitBtn").on("click", function () {
         zipCode = $("#inputZip").val();
@@ -74,6 +74,7 @@ $(document).ready(function () {
             method: "GET",
         })
             .then(function (response) {
+                console.log(response);
                 console.log(response.trails.length);
                 for (var i = 0; i < response.trails.length; i++) {
                     trailName = response.trails[i].name;
@@ -82,6 +83,9 @@ $(document).ready(function () {
                     trailDistance = response.trails[i].length;
                     trailStatus = response.trails[i].conditionStatus;
                     trailDetails = response.trails[i].conditionDetails;
+                    if (trailDetails === null) {
+                        trailDetails = "No information at this time. Hike at your own risk."
+                    }
                     returnTrails();
                 }
 
