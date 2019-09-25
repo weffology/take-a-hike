@@ -18,6 +18,16 @@ $(document).ready(function () {
     var trailStatus = "";
     var trailDetails = "";
 
+    // event listener that only allows numbers in the inpuZip box
+   $("#inputZip").keyup(function(x){
+    if ($.isNumeric(x.key)) {
+        // console.log("true");
+        return(true);
+    }else {
+        $('#inputZip').val("");
+        // console.log("false");
+    }});
+    
     //create on click function for the submit button
     $("#submitBtn").on("click", function () {
         zipCode = $("#inputZip").val();
