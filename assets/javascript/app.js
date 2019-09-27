@@ -8,7 +8,6 @@ $(document).ready(function () {
     var cityName = "";
     var tempHigh = "";
     var tempLow = "";
-    var clouds = "";
     var latitude = "";
     var longitude = "";
     var trailName = "";
@@ -19,23 +18,45 @@ $(document).ready(function () {
     var trailDetails = "";
 
     // event listener that only allows numbers in the inpuZip box
-   $("#inputZip").keyup(function(x){
-    if ($.isNumeric(x.key)) {
-        // console.log("true");
-        return(true);
-    }else {
-        $('#inputZip').val("");
-        // console.log("false");
-    }});
+    $("#inputZip").keyup(function (x) {
+        if ($.isNumeric(x.key)) {
+            // console.log("true");
+            return (true);
+        } else {
+            $('#inputZip').val("");
+            // console.log("false");
+        }
+    });
 
     //create on click function for the submit button
     $("#submitBtn").on("click", function () {
         zipCode = $("#inputZip").val();
         difficultyLevel = $("#difficultyLevel").val();
-        // IsValidZipCode();
+        
+        //create loading gif and push onto page
+        var loader = $("<div>");
+        loader.attr("id", "loader");
+        loader.html("<h3>We're fetching your trails now!</h3>")
+        loader.append("<img src=https://media.giphy.com/media/9oIsM3g8xtdM56qq85/giphy.gif>");
+        $("#doggies").html(loader);
+
+        //call functions
         getWeather();
         getLongitude();
+        console.log(zipCode);
+        console.log(difficultyLevel);
     })
+    $(document).ajaxStart(function () {
+        // Show image container
+        $("#row1").hide();
+        $("#row2").hide();
+        $("#loader").show();
+        setTimeout(function () {
+            $("#loader").hide();
+            $("#row1").show();
+            $("#row2").show();
+        }, 3000);
+    });
 
     function getWeather() {
         var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + "&units=imperial&appid=" + weatherAPIKey;
@@ -54,7 +75,7 @@ $(document).ready(function () {
     }
 
     function getLongitude() {
-        var longitudeAPIKey = "ZLj7GLdIDUTjJ0OWlaMIsYkXKMgRTJ0bZ4itlMOfDbtX9jrFBcQEpe9p6GrkMnRp";
+        var longitudeAPIKey = "WjRbiM6bqESF651TOwqFbMT3Ef6MP7rcPiVySYD5JMKwRki677MFAhlJKihQdDc7";
         var queryURLLongitude = "https://cors-anywhere.herokuapp.com/https://www.zipcodeapi.com/rest/" + longitudeAPIKey + "/info.json/" + zipCode + "/degrees";
         $.ajax({
             url: queryURLLongitude,
@@ -67,7 +88,6 @@ $(document).ready(function () {
     }
 
     function getTrails() {
-        console.log("sdfsdfsdfv");
         var queryURLTrail = "https://cors-anywhere.herokuapp.com/www.hikingproject.com/data/get-trails?lat=" + latitude + "&lon=" + longitude + "&maxDistance=10&key=" + trailAPIKey;
         $.ajax({
             url: queryURLTrail,
@@ -84,6 +104,9 @@ $(document).ready(function () {
                     trailStatus = response.trails[i].conditionStatus;
                     if (trailStatus == "Unknown") {
                         trailStatus = "<span style='font-size: 30px'>&#129335;</span>"
+                    }
+                    if (trailImage === "") {
+                        trailImage = "assets/images/leaf.png"
                     }
                     trailDetails = response.trails[i].conditionDetails;
                     if (trailDetails === null) {
@@ -106,20 +129,37 @@ $(document).ready(function () {
         $("#row1").html(divWeather);
     }
 
-        //create a function to push values to the trails section
-        function returnTrails() {
-            var divTrails = $("<div>");
-            divTrails.attr("class", "col-lg-12");
-            divTrails.attr("id", "trailResults");
-            divTrails.html("<p><img src=" + trailImage + "></p>");
-            divTrails.append("<p>Trail Name: " + "<strong>" + trailName + "</strong>" + "</p>");
-            divTrails.append("<p>Trail Summary: " + "<strong>" + trailSummary + "</strong>" + "</p>");
-            divTrails.append("<p>Trail Distance: " + "<strong>" + trailDistance + "</strong>" + "</p>");
-            divTrails.append("<p>Trail Status: " + "<strong>" + trailStatus + "</strong>" + "</p>");
-            divTrails.append("<p>Trail Details: " + "<strong>" + trailDetails + "</strong>" + "</p>");
-            divTrails.append("<hr>");
-            $("#row2").append(divTrails);
-        }
+    //create a function to push values to the trails section
+    function returnTrails() {
+        //create the div that all the results will live in
+        var divTrails = $("<div>");
+        divTrails.attr("class", "container");
+        divTrails.attr("id", "trailResults");
+        
+        //create a row div and add it into the container
+        var trailsRow = $("<div>");
+        trailsRow.attr("class", "row");
+        divTrails.append(trailsRow);
+        
+        //create a columns to display the trail image in a small column within the container
+        var trailsImg = $("<div>");
+        trailsImg.attr("class", "col-sm-3");
+        trailsImg.append("<p><img src=" + trailImage + "></p>");
+        trailsRow.append(trailsImg);
+
+        //create another column to display the trail data in a larger column within the same container
+        var trailsInfo = $("<div>");
+        trailsInfo.attr("class", "col-sm-9");
+        trailsInfo.append("<p>Trail Name: " + "<strong>" + trailName + "</strong>" + "</p>");
+        trailsInfo.append("<p>Trail Summary: " + "<strong>" + trailSummary + "</strong>" + "</p>");
+        trailsInfo.append("<p>Trail Length: " + "<strong>" + trailDistance + "</strong>" + "</p>");
+        trailsInfo.append("<p>Trail Status: " + "<strong>" + trailStatus + "</strong>" + "</p>");
+        trailsInfo.append("<p>Trail Details: " + "<strong>" + trailDetails + "</strong>" + "</p>");
+        trailsRow.append(trailsInfo);
+
+        //push all of the above into the row2 div
+        $("#row2").append(divTrails);
+    }
 
 })
 

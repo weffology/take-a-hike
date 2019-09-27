@@ -27,3 +27,26 @@ html body {
 html hr {
     border: 1px solid white;
 }
+
+#trailResults {
+    background-color:white;
+    border: groove #072c2c ;
+    border-radius: 10px;
+    color: #072c2c;
+    padding:10px;
+ }
+
+ #doggies {
+     margin: auto;
+     color: white;
+ }
+
+ #loader {
+     text-align: center;
+ }
+
+ #loader img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+ }
