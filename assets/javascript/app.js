@@ -75,7 +75,7 @@ $(document).ready(function () {
     }
 
     function getLongitude() {
-        var longitudeAPIKey = "WjRbiM6bqESF651TOwqFbMT3Ef6MP7rcPiVySYD5JMKwRki677MFAhlJKihQdDc7";
+        var longitudeAPIKey = "Qq3gUihRX9EYJ4bKueiEehySquBUxcGZSh7DSrhAWVxHPg8aQ3oGFOuHhps8Ft3F";
         var queryURLLongitude = "https://cors-anywhere.herokuapp.com/https://www.zipcodeapi.com/rest/" + longitudeAPIKey + "/info.json/" + zipCode + "/degrees";
         $.ajax({
             url: queryURLLongitude,
